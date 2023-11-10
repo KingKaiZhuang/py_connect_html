@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拉鍊偵測</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <h1>拉鍊損壞計數器</h1>
+    <p>損壞次數：<span id="damageCounter">0</span></p>
+
+    <script>
+        // 檔案在本地端的路徑
+        const filePath = 'file.json';
+        let number;
+        let numberElement = document.getElementById('damageCounter');
+        console.log(numberElement);
+
+        // 使用 fetch 發送本地端檔案的請求
+        fetch(filePath)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`無法抓取檔案 ${filePath}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(`成功抓取檔案 ${filePath}：`, data.num);
+                number = data.num;
+                numberElement.textContent = number;
+            })
+            .catch(error => {
+                console.error('抓取檔案時發生錯誤：', error.message);
+            });
+
+    </script>
+</body>
+
+</html>
